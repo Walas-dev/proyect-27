@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ebd8f8;
+  --primary: #43275d;
+  --secondary: #F9EAEB;
+  --text: #35252A;
+  --accent: #D4A373;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-text: var(--text);
+  --color-accent: var(--accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-nunito);
+
+  --color-hill-back: #f1dbef;
+  --color-hill-mid: #f6e2ec;
+  --color-ground: #fbecee;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
 }
+
+
+
+
+.menu-reveal {
+  --bx: calc(100% - 2.375rem); /* centro X del botón */
+  --by: 2rem;                  /* centro Y del botón (header h-16) */
+  clip-path: circle(0px at var(--bx) var(--by));
+  visibility: hidden;
+  transition:
+    clip-path 0.7s cubic-bezier(0.77, 0, 0.18, 1),
+    visibility 0s linear 0.7s;
+}
+.menu-reveal[data-open="true"] {
+  clip-path: circle(150vmax at var(--bx) var(--by));
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .menu-reveal, .menu-reveal * { transition-duration: 0.01ms !important; }
+}
+
+
+/* Árboles con un balanceo muy sutil */
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+.tree-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sway 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tree-sway { animation: none; }
+}
+
+/* hero banner */
+@keyframes confetti-fall {
+  0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translate3d(30px, 100dvh, 0) rotate(540deg); opacity: 0; }
+}
+.confetti {
+  animation: confetti-fall linear infinite;
+  will-change: transform;
+}
+
+
+/* Supa base */
+/* globals.css: evita que el fondo haga scroll con el visor abierto */
+body:has(dialog[open]) { overflow: hidden; }
