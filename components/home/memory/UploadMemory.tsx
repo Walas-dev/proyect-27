@@ -1,13 +1,16 @@
 // src/components/sections/UploadMemory.tsx
 "use client";
 
+
+import { useRouter } from "next/navigation";
+import { createUpload, finishUpload } from "@/app/actions/memories";
 import { useRef, useState } from "react";
-import { createUpload } from "@/app/actions/memories";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { compressImage } from "@/lib/compress";
 
 export default function UploadMemory({ token }: { token: string }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [caption, setCaption] = useState("");
@@ -53,8 +56,12 @@ export default function UploadMemory({ token }: { token: string }) {
         });
       if (upErr) throw upErr;
 
-      setApproved(res.approved);
-      setState("done");
+      await finishUpload();
+        router.refresh(); // vuelve a pedir los recuerdos al servidor
+
+        setApproved(res.approved);
+        setState("done");
+        
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "No pudimos subir tu foto. Inténtalo de nuevo."

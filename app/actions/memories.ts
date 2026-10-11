@@ -70,6 +70,9 @@ export async function createUpload(input: Input): Promise<Result> {
     .update({ last_used_at: new Date().toISOString() })
     .eq("id", link.id);
 
-  if (approved) revalidatePath("/[slug]", "page");
-  return { ok: true, path, uploadToken: signed.token, approved };
+    return { ok: true, path, uploadToken: signed.token, approved };
+}
+
+export async function finishUpload() {
+  revalidatePath("/[slug]", "page");
 }
