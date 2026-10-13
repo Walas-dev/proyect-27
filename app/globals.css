@@ -22,6 +22,8 @@
   --color-hill-back: #f1dbef;
   --color-hill-mid: #f6e2ec;
   --color-ground: #fbecee;
+
+  --font-hand: var(--font-caveat);
 }
 
 html {
@@ -87,3 +89,64 @@ body {
 /* Supa base */
 /* globals.css: evita que el fondo haga scroll con el visor abierto */
 body:has(dialog[open]) { overflow: hidden; }
+
+
+/* globals.css: dentro de @theme inline, junto a las otras fuentes */
+
+
+/* y al final del archivo: puntitos sutiles para el mural */
+.mural-dots {
+  background-image: radial-gradient(circle, rgba(67, 39, 93, 0.12) 1px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* Nota de papel con esquina doblada */
+.note {
+  --fold: 18px;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--fold)),
+    calc(100% - var(--fold)) 100%,
+    0 100%
+  );
+}
+.note::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--fold);
+  height: var(--fold);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.16) 50%, transparent 50%);
+}
+
+@media (min-width: 640px) {
+  .note { --fold: 24px; }
+}
+
+.paper-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    rgba(67, 39, 93, 0.09) 27px,
+    rgba(67, 39, 93, 0.09) 28px
+  );
+}
+
+/* Entrada de los modales */
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.93) rotate(-1deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+dialog.pop[open] { animation: pop-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1); }
+dialog.pop[open]::backdrop { animation: fade-in 0.3s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.pop[open], dialog.pop[open]::backdrop { animation: none; }
+}

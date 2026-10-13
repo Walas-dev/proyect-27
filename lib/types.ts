@@ -12,3 +12,12 @@ export type Memory = {
     caption: string;
     author: string | null;
 };
+
+export type Letter = {
+  id: string;
+  title: string | null;
+  message: string;
+  author: string | null;
+  color: string;
+  icon: string;
+};

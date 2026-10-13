@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import HomeView from "@/components/HomeView";
 import {
+  getApprovedLetters,
   getApprovedMemories,
   getCelebrationById,
   getLinkByToken,
@@ -22,13 +23,17 @@ export default async function Invitado({
   const celebration = await getCelebrationById(link.celebration_id);
   if (!celebration) notFound();
 
-  const memories = await getApprovedMemories(celebration.id);
+  const [memories, letters] = await Promise.all([
+    getApprovedMemories(celebration.id),
+    getApprovedLetters(celebration.id),
+  ]);
   return (
     <HomeView
       mode="invitado"
       token={token}
       celebration={celebration}
       memories={memories}
+      letters={letters}
     />
   );
 }

@@ -2,7 +2,7 @@
 import "server-only";
 import { createHash } from "node:crypto";
 import { supabaseAdmin } from "@/lib/supabase/server";
-import type { Celebration, Memory } from "@/lib/types";
+import type { Celebration, Letter, Memory } from "@/lib/types";
 
 const hashToken = (t: string) =>
   createHash("sha256").update(t).digest("hex");
@@ -58,5 +58,25 @@ export async function getApprovedMemories(celebrationId: string): Promise<Memory
     height: m.height ?? 1500,
     caption: m.caption ?? "",
     author: m.author_name,
+  }));
+}
+
+export async function getApprovedLetters(celebrationId: string): Promise<Letter[]> {
+  const { data, error } = await supabaseAdmin()
+    .from("letters")
+    .select("id, title, message, author_name, color, icon")
+    .eq("celebration_id", celebrationId)
+    .eq("status", "approved")
+    .order("created_at", { ascending: false });
+
+  if (error || !data) return [];
+
+  return data.map((l) => ({
+    id: l.id,
+    title: l.title,
+    message: l.message,
+    author: l.author_name,
+    color: l.color,
+    icon: l.icon,
   }));
 }

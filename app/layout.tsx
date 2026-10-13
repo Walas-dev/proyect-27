@@ -1,5 +1,5 @@
 import type { Metadata, Viewport  } from "next";
-import {  Fraunces, Nunito  } from "next/font/google";
+import {  Fraunces, Nunito, Caveat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header/page";
 import Footer from "@/components/layout/footer/page";
@@ -14,6 +14,12 @@ const nunito = Nunito({
   variable: "--font-nunito",
   display: "swap",
 });
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  display: "swap",
+});
+
 
 export const metadata: Metadata = {
   title: "Feliz cumpleaños",
@@ -30,7 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${nunito.variable}`}
+      className={`${fraunces.variable} ${nunito.variable} ${caveat.variable}`}
     >
        <body className="min-h-dvh font-sans antialiased">
         <Header />

@@ -1,7 +1,8 @@
 // src/components/HomeView.tsx
 import Inicio from "@/components/home/hero/page";
 import Recuerdos from "@/components/home/memory/Remenber";
-import type { Celebration, Memory } from "@/lib/types";
+import Cartas from "@/components/home/letters/page";
+import type { Celebration, Memory, Letter } from "@/lib/types";
 
 const Placeholder = ({ id, title }: { id: string; title: string }) => (
   <section id={id} className="grid min-h-dvh place-items-center">
@@ -12,13 +13,17 @@ const Placeholder = ({ id, title }: { id: string; title: string }) => (
 export default function HomeView({
   mode,
   token,
+  defaultName,
   celebration,
   memories,
+  letters,
 }: {
   mode: "invitado" | "homenajeada";
   token?: string;
+  defaultName?:string;
   celebration: Celebration;
   memories: Memory[];
+  letters: Letter[];
 }) {
   return (
     <>
@@ -28,7 +33,7 @@ export default function HomeView({
         mode={mode}
       />
       <Recuerdos memories={memories} token={token} />
-      <Placeholder id="cartas" title="Cartas" />
+      <Cartas letters={letters} token={token} defaultName={defaultName} />
       <Placeholder id="melodias" title="Melodías" />
     </>
   );
