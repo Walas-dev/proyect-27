@@ -21,3 +21,25 @@ export type Letter = {
   color: string;
   icon: string;
 };
+
+
+// src/lib/types.ts
+export type SongResult = {
+  id: string;
+  title: string;
+  artist: string;
+  cover: string | null;
+  previewUrl: string | null;
+  durationMs: number | null;
+  album: string | null;
+};
+
+export type Song = {
+  id: string;
+  title: string;
+  artist: string;
+  cover: string | null;
+  previewUrl: string | null;
+  audioUrl: string | null; // archivo completo (lo usará el casete)
+  author: string | null;
+};

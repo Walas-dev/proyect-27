@@ -7,6 +7,7 @@ import {
   getApprovedMemories,
   getCelebrationById,
   getLinkByToken,
+  getApprovedSongs
 } from "@/lib/celebration";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
@@ -23,9 +24,10 @@ export default async function Invitado({
   const celebration = await getCelebrationById(link.celebration_id);
   if (!celebration) notFound();
 
-  const [memories, letters] = await Promise.all([
+  const [memories, letters, songs] = await Promise.all([
     getApprovedMemories(celebration.id),
     getApprovedLetters(celebration.id),
+    getApprovedSongs(celebration.id),
   ]);
   return (
     <HomeView
@@ -34,6 +36,7 @@ export default async function Invitado({
       celebration={celebration}
       memories={memories}
       letters={letters}
+      songs={songs}
     />
   );
 }

@@ -2,7 +2,8 @@
 import "server-only";
 import { createHash } from "node:crypto";
 import { supabaseAdmin } from "@/lib/supabase/server";
-import type { Celebration, Letter, Memory } from "@/lib/types";
+import type { Celebration, Letter, Memory, Song } from "@/lib/types";
+
 
 const hashToken = (t: string) =>
   createHash("sha256").update(t).digest("hex");
@@ -78,5 +79,30 @@ export async function getApprovedLetters(celebrationId: string): Promise<Letter[
     author: l.author_name,
     color: l.color,
     icon: l.icon,
+  }));
+}
+
+export async function getApprovedSongs(celebrationId: string): Promise<Song[]> {
+  const db = supabaseAdmin();
+  const { data, error } = await db
+    .from("songs")
+    .select("id, title, artist, cover_url, preview_url, audio_path, author_name")
+    .eq("celebration_id", celebrationId)
+    .eq("status", "approved")
+    .order("position", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  if (error || !data) return [];
+
+  return data.map((s) => ({
+    id: s.id,
+    title: s.title,
+    artist: s.artist,
+    cover: s.cover_url,
+    previewUrl: s.preview_url,
+    audioUrl: s.audio_path
+      ? db.storage.from("songs").getPublicUrl(s.audio_path).data.publicUrl
+      : null,
+    author: s.author_name,
   }));
 }

@@ -2,7 +2,8 @@
 import Inicio from "@/components/home/hero/page";
 import Recuerdos from "@/components/home/memory/Remenber";
 import Cartas from "@/components/home/letters/page";
-import type { Celebration, Memory, Letter } from "@/lib/types";
+import Melodias from "@/components/home/songs/melodies";
+import type { Celebration, Memory, Letter, Song } from "@/lib/types";
 
 const Placeholder = ({ id, title }: { id: string; title: string }) => (
   <section id={id} className="grid min-h-dvh place-items-center">
@@ -17,6 +18,7 @@ export default function HomeView({
   celebration,
   memories,
   letters,
+  songs,
 }: {
   mode: "invitado" | "homenajeada";
   token?: string;
@@ -24,6 +26,7 @@ export default function HomeView({
   celebration: Celebration;
   memories: Memory[];
   letters: Letter[];
+  songs: Song[];
 }) {
   return (
     <>
@@ -34,7 +37,7 @@ export default function HomeView({
       />
       <Recuerdos memories={memories} token={token} />
       <Cartas letters={letters} token={token} defaultName={defaultName} />
-      <Placeholder id="melodias" title="Melodías" />
+      <Melodias songs={songs} token={token} />
     </>
   );
 }

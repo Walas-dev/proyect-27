@@ -1,7 +1,7 @@
 // src/app/[slug]/page.tsx  (vista de la homenajeada)
 import { notFound } from "next/navigation";
 import HomeView from "@/components/HomeView";
-import { getApprovedLetters, getApprovedMemories, getCelebrationBySlug } from "@/lib/celebration";
+import { getApprovedLetters, getApprovedMemories, getCelebrationBySlug, getApprovedSongs } from "@/lib/celebration";
 
 export const revalidate = 60; // lo aprobado aparece en ≤ 1 min
 
@@ -14,9 +14,10 @@ export default async function Celebracion({
   const celebration = await getCelebrationBySlug(slug);
   if (!celebration) notFound();
 
-  const [memories, letters] = await Promise.all([
+  const [ memories, letters, songs ] = await Promise.all([
     getApprovedMemories(celebration.id),
     getApprovedLetters(celebration.id),
+    getApprovedSongs(celebration.id),
   ]);
 
   return (
@@ -25,6 +26,7 @@ export default async function Celebracion({
       celebration={celebration} 
       memories={memories} 
       letters={letters}
+      songs={songs}
     />
     );
 }

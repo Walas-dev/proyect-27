@@ -150,3 +150,22 @@ dialog.pop[open]::backdrop { animation: fade-in 0.3s ease; }
 @media (prefers-reduced-motion: reduce) {
   dialog.pop[open], dialog.pop[open]::backdrop { animation: none; }
 }
+
+/* Apertura del modal: círculo que crece desde el botón (como el menú del header) */
+@keyframes reveal-from-origin {
+  from { clip-path: circle(0px at var(--ox, 50%) var(--oy, 0%)); }
+  to   { clip-path: circle(150vmax at var(--ox, 50%) var(--oy, 0%)); }
+}
+dialog.reveal[open] { animation: reveal-from-origin 0.6s cubic-bezier(0.77, 0, 0.18, 1); }
+dialog.reveal[open]::backdrop { animation: fade-in 0.4s ease; }
+
+/* Entrada escalonada de los casetes */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px) rotate(-1deg); }
+  to   { opacity: 1; transform: none; }
+}
+.rise-in { animation: rise-in 0.4s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.reveal[open], dialog.reveal[open]::backdrop, .rise-in { animation: none; }
+}
