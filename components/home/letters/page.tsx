@@ -1,7 +1,7 @@
 // src/components/sections/Cartas.tsx
 import LetterBoard from "./letterBoard";
 import type { Letter } from "@/lib/types";
-
+import { Mail } from "lucide-react";
 export default function Cartas({
   letters,
   token,
@@ -33,7 +33,8 @@ export default function Cartas({
 
         {letters.length === 0 && !token ? (
           <p className="py-10 text-center text-text/70">
-            Pronto aparecerán aquí las cartas 💌
+            Pronto aparecerán aquí las cartas 
+            <Mail className="h-4 w-4" aria-hidden="true" />
           </p>
         ) : (
           <LetterBoard letters={letters} token={token} defaultName={defaultName} />

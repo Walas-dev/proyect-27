@@ -6,6 +6,7 @@ import { supabaseAdmin } from "@/lib/supabase/server";
 import { getLinkByToken } from "@/lib/celebration";
 import { lookupTrack, searchTracks } from "@/lib/itunes";
 import type { SongResult } from "@/lib/types";
+import { notifyAdmin } from "@/lib/notify";
 
 const MAX_PER_LINK = 5;
 
@@ -83,7 +84,15 @@ export async function requestSong(input: {
     .from("contribution_links")
     .update({ last_used_at: new Date().toISOString() })
     .eq("id", link.id);
-
+ 
+    if (!approved) {
+      notifyAdmin({
+        title: `Nueva canción de ${link.assigned_name ?? "un invitado"}`,
+        detail: `${t.title} — ${t.artist}`,
+        path: "/admin/canciones?estado=pending",
+      });
+    }
+    
   if (approved) revalidatePath("/[slug]", "page");
   return { ok: true, approved };
 }

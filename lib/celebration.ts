@@ -3,10 +3,7 @@ import "server-only";
 import { createHash } from "node:crypto";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import type { Celebration, Letter, Memory, Song } from "@/lib/types";
-
-
-const hashToken = (t: string) =>
-  createHash("sha256").update(t).digest("hex");
+import { hashToken } from "./token";
 
 export async function getCelebrationBySlug(slug: string) {
   const { data } = await supabaseAdmin()

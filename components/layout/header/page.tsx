@@ -29,7 +29,6 @@ const Nav = () => {
   const [open, setOpen] = useState(false);
   const active = useActiveSection(nav.map((i) => i.id));
 
-  // Escape para cerrar + bloquear scroll del fondo con el menú abierto
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
@@ -61,7 +60,7 @@ const Nav = () => {
         <span className="mr-1 inline-block text-accent transition-transform duration-500 group-hover:rotate-180">
           ✦
         </span>
-        Nombre<span className="text-accent">.</span>
+        Wilmarys Brizuela<span className="text-accent">.</span>
       </a>
 
 

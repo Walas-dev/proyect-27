@@ -4,6 +4,8 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import type { Memory } from "@/lib/types";
+import { Heart } from "lucide-react";
+
 
 const TILTS = ["-rotate-2", "rotate-1", "rotate-2", "-rotate-1"];
 
@@ -19,8 +21,9 @@ export default function Gallery({ memories }: { memories: Memory[] }) {
 
   if (memories.length === 0) {
     return (
-      <p className="text-center text-text/70">
-        Pronto aparecerán aquí los recuerdos 💜
+      <p className="flex justify-center text-center text-text/70 gap-3">
+        Pronto aparecerán aquí los recuerdos 
+        <Heart className="h-5 w-5" aria-hidden="true" />
       </p>
     );
   }

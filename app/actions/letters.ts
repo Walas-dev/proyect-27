@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { getLinkByToken } from "@/lib/celebration";
 import { LETTER_COLORS, LETTER_ICONS } from "@/lib/letter-style";
+import { notifyAdmin } from "@/lib/notify";
 
 const MAX_PER_LINK = 5;
 const COLOR_IDS: string[] = LETTER_COLORS.map((c) => c.id);
@@ -62,6 +63,13 @@ export async function createLetter(input: Input): Promise<Result> {
     .update({ last_used_at: new Date().toISOString() })
     .eq("id", link.id);
 
+    if (!approved) {
+      notifyAdmin({
+        title: `Nueva carta de ${link.assigned_name ?? "un invitado"}`,
+        detail: title || message.slice(0, 120),
+        path: "/admin/cartas?estado=pending",
+      });
+    }
   if (approved) revalidatePath("/[slug]", "page");
   return { ok: true, approved };
 }

@@ -4,6 +4,9 @@ import Recuerdos from "@/components/home/memory/Remenber";
 import Cartas from "@/components/home/letters/page";
 import Melodias from "@/components/home/songs/melodies";
 import type { Celebration, Memory, Letter, Song } from "@/lib/types";
+import Header from "@/components/layout/header/page";
+import Footer from "@/components/layout/footer/page";
+
 
 const Placeholder = ({ id, title }: { id: string; title: string }) => (
   <section id={id} className="grid min-h-dvh place-items-center">
@@ -30,14 +33,16 @@ export default function HomeView({
 }) {
   return (
     <>
-      <Inicio
-        nombre={celebration.recipient_name ?? ""}
-        fecha={`${celebration.celebration_date}T00:00:00`} // la celebración debe tener fecha
-        mode={mode}
-      />
-      <Recuerdos memories={memories} token={token} />
-      <Cartas letters={letters} token={token} defaultName={defaultName} />
-      <Melodias songs={songs} token={token} />
+      <Header />
+        <Inicio
+          nombre={celebration.recipient_name ?? ""}
+          fecha={`${celebration.celebration_date}T00:00:00`} // la celebración debe tener fecha
+          mode={mode}
+        />
+        <Recuerdos memories={memories} token={token} />
+        <Cartas letters={letters} token={token} defaultName={defaultName} />
+        <Melodias songs={songs} token={token} />
+      <Footer />
     </>
   );
 }

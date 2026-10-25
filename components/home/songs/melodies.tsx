@@ -2,6 +2,7 @@
 import SongRequest from "./songRequest";
 import CassettePlayer from "./cassettePlayer";
 import type { Song } from "@/lib/types";
+import { Music } from "lucide-react";
 
 export default function Melodias({
   songs,
@@ -31,8 +32,8 @@ export default function Melodias({
         </header>
 
         {songs.length === 0 ? (
-          <p className="py-6 text-center text-text/70">
-            Pronto sonarán aquí las canciones 🎶
+          <p className="flex justify-center gap-3 py-3 text-center text-text/70">
+            Pronto sonarán aquí las canciones <Music className="h-5 w-5" aria-hidden="true" />
           </p>
         ) : (
           <CassettePlayer songs={songs} />

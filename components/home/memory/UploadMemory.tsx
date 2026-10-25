@@ -7,6 +7,8 @@ import { createUpload, finishUpload } from "@/app/actions/memories";
 import { useRef, useState } from "react";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { compressImage } from "@/lib/compress";
+import { Camera } from "lucide-react";
+
 
 export default function UploadMemory({ token }: { token: string }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -77,7 +79,8 @@ export default function UploadMemory({ token }: { token: string }) {
         onClick={() => dialogRef.current?.showModal()}
         className="inline-flex min-h-12 items-center gap-2 rounded-full bg-primary px-6 font-bold text-secondary shadow-md transition hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
       >
-        📷 Agregar un recuerdo
+        <Camera className="h-5 w-5" aria-hidden="true" />
+         Agregar un recuerdo
       </button>
 
       <dialog

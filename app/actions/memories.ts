@@ -4,6 +4,7 @@
 import { revalidatePath } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { getLinkByToken } from "@/lib/celebration";
+import { notifyAdmin } from "@/lib/notify";
 
 const MAX_PER_LINK = 10;
 
@@ -70,6 +71,14 @@ export async function createUpload(input: Input): Promise<Result> {
     .update({ last_used_at: new Date().toISOString() })
     .eq("id", link.id);
 
+    if (!approved) {
+      notifyAdmin({
+        title: `Nuevo recuerdo de ${link.assigned_name ?? "un invitado"}`,
+        detail: caption,
+        path: "/admin/recuerdos?estado=pending",
+      });
+    }
+  
     return { ok: true, path, uploadToken: signed.token, approved };
 }
 

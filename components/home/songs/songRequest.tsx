@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { requestSong, searchSongs } from "@/app/actions/songs";
 import type { SongResult } from "@/lib/types";
+import { Music } from "lucide-react";
 
 const DEBOUNCE_MS = 900; // pausa sin teclear antes de buscar
 const MIN_CHARS = 3;
@@ -218,7 +219,8 @@ export default function SongRequest({ token }: { token: string }) {
         onClick={openModal}
         className="inline-flex min-h-12 items-center gap-2 rounded-full bg-primary px-6 font-bold text-secondary shadow-md transition hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
       >
-        🎵 Pedir una canción
+        <Music className="h-5 w-5" aria-hidden="true" />
+         Pedir una canción
       </button>
 
       <dialog
