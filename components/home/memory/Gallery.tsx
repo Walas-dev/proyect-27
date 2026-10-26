@@ -47,12 +47,14 @@ export default function Gallery({ memories }: { memories: Memory[] }) {
                 loading="lazy"
                 className="h-auto w-full"
               />
-              <span className="mt-2 line-clamp-2 block font-display text-sm italic text-text">
-                {m.caption}
-              </span>
+              {m.caption && (
+                <span className="mt-2 line-clamp-2 block font-display text-sm italic text-text">
+                  {m.caption}
+                </span>
+              )}
               {m.author && (
-                <span className="mt-1 block text-[11px] font-bold text-primary/60">
-                  — {m.author}
+                <span className="mt-2 block text-[11px] font-bold text-primary/60">
+                  
                 </span>
               )}
             </button>
@@ -64,7 +66,7 @@ export default function Gallery({ memories }: { memories: Memory[] }) {
         ref={dialogRef}
         onClose={() => setCurrent(null)}
         onClick={(e) => e.target === e.currentTarget && close()}
-        className="m-auto max-h-[92dvh] w-[min(92vw,34rem)] overflow-auto bg-transparent p-0 backdrop:bg-primary/75"
+        className="m-auto max-h-none w-[min(92vw,34rem)] overflow-visible bg-transparent p-0 backdrop:bg-primary/75"
       >
         {current && (
           <figure className="rotate-1 bg-white p-3 pb-6 shadow-2xl">
@@ -75,18 +77,18 @@ export default function Gallery({ memories }: { memories: Memory[] }) {
               height={current.height}
               sizes="(min-width:640px) 34rem, 92vw"
               priority
-              className="h-auto max-h-[65dvh] w-full object-contain"
+              className="h-auto max-h-[calc(100dvh-15rem)] w-full object-contain"
             />
-            <figcaption className="mt-5 px-2 text-center">
-              <span className="block font-display text-xl italic text-text">
-                {current.caption}
-              </span>
-              {current.author && (
-                <span className="mt-2 block text-sm font-bold text-primary/70">
-                  — {current.author}
-                </span>
-              )}
-            </figcaption>
+            {(current.caption || current.author) && (
+              <figcaption className="mt-5 px-2 text-center">
+                {current.caption && (
+                  <span className="block font-display text-xl italic text-text">
+                    {current.caption}
+                  </span>
+                )}
+                
+              </figcaption>
+            )}
             <button
               type="button"
               onClick={close}

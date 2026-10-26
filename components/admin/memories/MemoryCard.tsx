@@ -18,7 +18,7 @@ export default function MemoryCard({ memory }: { memory: AdminMemory }) {
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3">
         <CardMeta status={memory.status} createdAt={memory.createdAt} />
-        <p className="text-sm">{memory.caption}</p>
+        <p className="text-sm">{memory.caption || <span className="text-text/50">Sin leyenda</span>}</p>
         <p className="text-xs font-bold text-primary/70">{memory.authorName ?? "Sin nombre"}</p>
         <div className="mt-auto pt-2">
           <ModerationButtons table="memories" id={memory.id} status={memory.status} />
