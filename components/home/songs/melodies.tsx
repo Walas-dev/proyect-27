@@ -24,7 +24,7 @@ export default function Melodias({
   return (
     <section
       id="melodias"
-      className="relative isolate scroll-mt-20 overflow-hidden px-4 py-20 sm:px-6 md:py-28"
+      className="songs-section relative isolate scroll-mt-20 overflow-hidden px-4 py-20 sm:px-6 md:py-28"
     >
       
       <div
@@ -32,32 +32,32 @@ export default function Melodias({
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden text-primary"
       >
         <Music2
-          className="music-float absolute left-[8%] top-24 h-10 w-10 -rotate-12 text-accent sm:left-[14%] sm:h-14 sm:w-14"
+          className="decor-float absolute left-[8%] top-24 h-10 w-10 -rotate-12 text-accent sm:left-[14%] sm:h-14 sm:w-14"
           strokeWidth={1.3}
         />
 
         <Disc3
-          className="music-spin absolute right-[8%] top-28 h-14 w-14 text-primary/50 sm:right-[14%] sm:h-[4.5rem] sm:w-[4.5rem]"
+          className="decor-spin absolute right-[8%] top-28 h-14 w-14 text-primary/50 sm:right-[14%] sm:h-[4.5rem] sm:w-[4.5rem]"
           strokeWidth={1}
         />
 
         <AudioLines
-          className="music-float-reverse absolute right-[12%] top-[48%] h-9 w-9 text-accent sm:right-[8%] sm:h-12 sm:w-12"
+          className="decor-float absolute right-[12%] top-[48%] h-9 w-9 text-accent sm:right-[8%] sm:h-12 sm:w-12"
           strokeWidth={1.4}
         />
 
         <Headphones
-          className="music-float absolute bottom-20 left-[9%] h-10 w-10 rotate-6 text-primary/60 sm:left-[15%] sm:h-12 sm:w-12"
+          className="decor-float absolute bottom-20 left-[9%] h-10 w-10 rotate-6 text-primary/60 sm:left-[15%] sm:h-12 sm:w-12"
           strokeWidth={1.2}
         />
 
         <Music2
-          className="music-float-reverse absolute bottom-24 right-[10%] h-9 w-9 rotate-12 text-accent sm:right-[17%] sm:h-12 sm:w-12"
+          className="decor-float absolute bottom-24 right-[10%] h-9 w-9 rotate-12 text-accent sm:right-[17%] sm:h-12 sm:w-12"
           strokeWidth={1.3}
         />
 
         <Sparkles
-          className="music-twinkle absolute left-[47%] top-12 h-6 w-6 text-accent/80"
+          className="decor-twinkle absolute left-[47%] top-12 h-6 w-6 text-accent/80"
           strokeWidth={1.3}
         />
       </div>

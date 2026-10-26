@@ -169,3 +169,96 @@ dialog.reveal[open]::backdrop { animation: fade-in 0.4s ease; }
 @media (prefers-reduced-motion: reduce) {
   dialog.reveal[open], dialog.reveal[open]::backdrop, .rise-in { animation: none; }
 }
+
+/* Animacion de las decoraciones */
+
+.decor-float {
+  animation: decor-float var(--decor-speed, 6s) ease-in-out infinite;
+}
+
+.decor-drift {
+  animation: decor-drift var(--decor-speed, 7s) ease-in-out infinite;
+}
+
+.decor-spin {
+  animation: decor-spin var(--decor-spin-speed, 18s) linear infinite;
+}
+
+.decor-twinkle {
+  animation: decor-twinkle var(--decor-twinkle-speed, 3s) ease-in-out infinite;
+}
+
+/* Animaciones compartidas */
+
+@keyframes decor-float {
+  0%, 100% {
+    translate: 0 0;
+    rotate: var(--decor-rotation, 0deg);
+  }
+
+  50% {
+    translate: 0 calc(-1 * var(--decor-distance, 12px));
+    rotate: var(--decor-rotation-end, 4deg);
+  }
+}
+
+@keyframes decor-drift {
+  0%, 100% {
+    translate: 0 0;
+    rotate: var(--decor-rotation, 0deg);
+  }
+
+  50% {
+    translate: var(--decor-x, 7px) calc(-1 * var(--decor-distance, 10px));
+    rotate: var(--decor-rotation-end, -3deg);
+  }
+}
+
+@keyframes decor-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes decor-twinkle {
+  0%, 100% {
+    opacity: var(--decor-opacity-low, 0.4);
+    scale: 0.9;
+  }
+
+  50% {
+    opacity: var(--decor-opacity-high, 1);
+    scale: 1.12;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .decor-float,
+  .decor-drift,
+  .decor-spin,
+  .decor-twinkle {
+    animation: none;
+  }
+}
+
+/* Melodías */
+.songs-section {
+  --decor-speed: 5s;
+  --decor-distance: 12px;
+  --decor-spin-speed: 18s;
+  --decor-twinkle-speed: 3s;
+}
+
+/* Cartas */
+.letters-section {
+  --decor-speed: 6s;
+  --decor-distance: 14px;
+  --decor-twinkle-speed: 3.5s;
+}
+
+/* Recuerdos */
+.memories-section {
+  --decor-speed: 8s;
+  --decor-distance: 10px;
+  --decor-twinkle-speed: 5s;
+}

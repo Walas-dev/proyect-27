@@ -1,10 +1,9 @@
-// components/home/songs/cassettePlayer.tsx
+// src/components/home/songs/cassettePlayer.tsx
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { Song } from "@/lib/types";
 import { ExternalLink } from "lucide-react";
-
+import type { Song } from "@/lib/types";
 
 const fmt = (s: number) => {
   if (!Number.isFinite(s) || s < 0) return "0:00";
@@ -168,6 +167,7 @@ export default function CassettePlayer({ songs }: { songs: Song[] }) {
             <span aria-hidden="true" className="absolute bottom-2 left-2 h-2 w-2 rounded-full bg-white/50" />
             <span aria-hidden="true" className="absolute bottom-2 right-2 h-2 w-2 rounded-full bg-white/50" />
 
+            {/* Etiqueta */}
             <div className="paper-lines rounded-xl bg-[#fffaf3] p-3 sm:p-4">
               <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.2em] text-primary/60">
                 <span>Lado A</span>
@@ -176,56 +176,52 @@ export default function CassettePlayer({ songs }: { songs: Song[] }) {
                 </span>
               </div>
 
-              <div className="mt-2 flex items-center gap-3">
+              {/* Fila 1: portada + título y artista con TODO el ancho restante */}
+              <div className="mt-3 flex items-start gap-3">
                 {current.cover ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={current.cover}
                     alt=""
-                    className="h-14 w-14 shrink-0 rounded object-cover"
+                    className="h-16 w-16 shrink-0 rounded object-cover sm:h-20 sm:w-20"
                   />
                 ) : (
-                  <div className="grid h-14 w-14 shrink-0 place-items-center rounded bg-primary/10 text-2xl">
+                  <div className="grid h-16 w-16 shrink-0 place-items-center rounded bg-primary/10 text-2xl sm:h-20 sm:w-20">
                     🎵
                   </div>
                 )}
+
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-hand text-3xl leading-none text-primary">
+                  <p className="line-clamp-2 break-words font-hand text-3xl leading-[0.95] text-primary">
                     {current.title}
                   </p>
                   <p className="mt-1 truncate text-sm text-text/70">{current.artist}</p>
+                </div>
+              </div>
+
+              {/* Fila 2: distintivo y enlace, debajo y con salto de línea si hace falta */}
+              {(current.isPreview || current.spotifyId) && (
+                <div className="mt-3 flex flex-wrap items-center gap-2">
                   {current.isPreview && (
-                    <span className="mt-1 inline-block rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-bold text-primary">
+                    <span className="whitespace-nowrap rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-bold text-primary">
                       Vista previa · 30 s
                     </span>
                   )}
-
                   {current.spotifyId && (
                     <a
                       href={`https://open.spotify.com/track/${current.spotifyId}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-1 inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[11px] font-bold text-secondary"
+                      className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-primary px-2.5 py-1 text-[11px] font-bold text-secondary"
                     >
                       Escuchar completa en Spotify
                       <ExternalLink className="h-3 w-3" aria-hidden="true" />
                     </a>
                   )}
                 </div>
-                
-                  {current.spotifyId && (
-                    <a
-                      href={`https://open.spotify.com/track/${current.spotifyId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[11px] font-bold text-secondary"
-                    >
-                      Escuchar completa en Spotify
-                      <ExternalLink className="h-3 w-3" aria-hidden="true" />
-                    </a>
-                  )}
-              </div>
+              )}
 
+              {/* Carretes */}
               <div className="mt-3 flex items-center justify-between rounded-full bg-primary px-4 py-2 text-[#fffaf3]">
                 <BigReel spinning={playing} />
                 <span aria-hidden="true" className="mx-3 h-1 flex-1 rounded bg-current opacity-40" />

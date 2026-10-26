@@ -15,7 +15,7 @@ export default function Cartas({
   return (
     <section
       id="cartas"
-      className="relative isolate scroll-mt-20 overflow-hidden px-4 py-20 sm:px-6 md:py-28"
+      className="letters-section relative isolate scroll-mt-20 overflow-hidden px-4 py-20 sm:px-6 md:py-28"
     >
       
       <div
@@ -28,32 +28,32 @@ export default function Cartas({
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden text-primary"
       >
         <Mail
-          className="letter-float absolute left-[8%] top-24 h-10 w-10 -rotate-12 text-text/50 sm:left-[13%] sm:h-14 sm:w-14"
+          className="decor-float absolute left-[8%] top-24 h-10 w-10 -rotate-20 text-text/50 sm:left-[13%] sm:h-14 sm:w-14"
           strokeWidth={1.3}
         />
 
         <Heart
-          className="letter-drift absolute right-[10%] top-36 h-8 w-8 rotate-12 text-primary/90 sm:right-[15%] sm:h-11 sm:w-11"
+          className="decor-drift absolute right-[10%] top-36 h-8 w-8 rotate-12 text-primary/90 sm:right-[15%] sm:h-11 sm:w-11"
           strokeWidth={1.4}
         />
 
         <Sparkles
-          className="letter-twinkle absolute right-[18%] top-[48%] h-8 w-8 text-text/50 sm:right-[9%] sm:h-10 sm:w-10"
+          className="decor-twinkle absolute right-[18%] top-[48%] h-8 w-8 text-text/50 sm:right-[9%] sm:h-10 sm:w-10"
           strokeWidth={1.3}
         />
 
         <MailOpen
-          className="letter-drift absolute bottom-20 left-[10%] h-10 w-10 rotate-6 text-primary/60 sm:left-[16%] sm:h-12 sm:w-12"
+          className="decor-drift absolute bottom-20 left-[10%] h-10 w-10 rotate-6 text-primary/60 sm:left-[16%] sm:h-12 sm:w-12"
           strokeWidth={1.2}
         />
 
         <Heart
-          className="letter-float absolute bottom-24 right-[9%] h-9 w-9 -rotate-12 text-accent/80 sm:right-[16%] sm:h-12 sm:w-12"
+          className="decor-drift absolute bottom-24 right-[9%] h-9 w-9 -rotate-12 text-accent/80 sm:right-[16%] sm:h-12 sm:w-12"
           strokeWidth={1.3}
         />
 
         <Sparkles
-          className="letter-twinkle absolute left-[46%] top-12 h-6 w-6 text-accent/80"
+          className="decor-twinkle absolute left-[46%] top-12 h-6 w-6 text-accent/80"
           strokeWidth={1.3}
         />
       </div>
