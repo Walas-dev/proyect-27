@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ebd8f8;
+  --primary: #43275d;
+  --secondary: #F9EAEB;
+  --text: #35252A;
+  --accent: #D4A373;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-text: var(--text);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-nunito);
+
+  --color-hill-back: #f1dbef;
+  --color-hill-mid: #f6e2ec;
+  --color-ground: #fbecee;
+
+  --font-hand: var(--font-caveat);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+}
+
+
+
+
+.menu-reveal {
+  --bx: calc(100% - 2.375rem); /* centro X del botón */
+  --by: 2rem;                  /* centro Y del botón (header h-16) */
+  clip-path: circle(0px at var(--bx) var(--by));
+  visibility: hidden;
+  transition:
+    clip-path 0.7s cubic-bezier(0.77, 0, 0.18, 1),
+    visibility 0s linear 0.7s;
+}
+.menu-reveal[data-open="true"] {
+  clip-path: circle(150vmax at var(--bx) var(--by));
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .menu-reveal, .menu-reveal * { transition-duration: 0.01ms !important; }
+}
+
+
+/* Árboles con un balanceo muy sutil */
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+.tree-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sway 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tree-sway { animation: none; }
+}
+
+/* hero banner */
+@keyframes confetti-fall {
+  0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translate3d(30px, 100dvh, 0) rotate(540deg); opacity: 0; }
+}
+.confetti {
+  animation: confetti-fall linear infinite;
+  will-change: transform;
+}
+
+
+/* Supa base */
+/* globals.css: evita que el fondo haga scroll con el visor abierto */
+body:has(dialog[open]) { overflow: hidden; }
+
+
+/* globals.css: dentro de @theme inline, junto a las otras fuentes */
+
+
+/* y al final del archivo: puntitos sutiles para el mural */
+.mural-dots {
+  background-image: radial-gradient(circle, rgba(67, 39, 93, 0.12) 1px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* Nota de papel con esquina doblada */
+.note {
+  --fold: 18px;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--fold)),
+    calc(100% - var(--fold)) 100%,
+    0 100%
+  );
+}
+.note::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--fold);
+  height: var(--fold);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.16) 50%, transparent 50%);
+}
+
+@media (min-width: 640px) {
+  .note { --fold: 24px; }
+}
+
+.paper-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    rgba(67, 39, 93, 0.09) 27px,
+    rgba(67, 39, 93, 0.09) 28px
+  );
+}
+
+/* Entrada de los modales */
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.93) rotate(-1deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+dialog.pop[open] { animation: pop-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1); }
+dialog.pop[open]::backdrop { animation: fade-in 0.3s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.pop[open], dialog.pop[open]::backdrop { animation: none; }
+}
+
+/* Apertura del modal: círculo que crece desde el botón (como el menú del header) */
+@keyframes reveal-from-origin {
+  from { clip-path: circle(0px at var(--ox, 50%) var(--oy, 0%)); }
+  to   { clip-path: circle(150vmax at var(--ox, 50%) var(--oy, 0%)); }
+}
+dialog.reveal[open] { animation: reveal-from-origin 0.6s cubic-bezier(0.77, 0, 0.18, 1); }
+dialog.reveal[open]::backdrop { animation: fade-in 0.4s ease; }
+
+/* Entrada escalonada de los casetes */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px) rotate(-1deg); }
+  to   { opacity: 1; transform: none; }
+}
+.rise-in { animation: rise-in 0.4s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.reveal[open], dialog.reveal[open]::backdrop, .rise-in { animation: none; }
+}
